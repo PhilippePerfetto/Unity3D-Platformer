@@ -39,10 +39,10 @@ public class HelpFriends : MonoBehaviour
             //iTween.ShakeRotation(transform.gameObject, iTween.Hash("x", shakeAmount, "time", duration, "delay", delay, "easetype", iTween.EaseType.easeInOutQuint, "onupdate", "StayWithParent", "oncomplete", "StayWithParent"));
             
             iTween.ShakeScale(cell, new Vector3(145, 145, 145), 1f);
-            Destroy(cell, 1.2f);
+            Destroy(cell, 2f);
 
             var merci = Instantiate(merciGameObject, cell.transform.position, Quaternion.identity);
-            Destroy(merci, 5f);
+            Destroy(merci, 2f);
 
             text.text = string.Empty;
         }
