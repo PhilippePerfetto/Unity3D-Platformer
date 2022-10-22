@@ -8,6 +8,7 @@ public class PlayerCollision : MonoBehaviour
 {
     int nbCoins = 0;
     public GameObject pickupParticles;
+    public GameObject loot;
     public GameObject mobParticles;
     bool canInstantiate = true;
     public GameObject cam1, cam2;
@@ -77,16 +78,19 @@ public class PlayerCollision : MonoBehaviour
         else if (hit.gameObject.CompareTag("Mob") && canInstantiate)
         {
             canInstantiate = false;
+            hit.gameObject.transform.parent.GetComponent<Collider>().enabled = false;
             audioSource.PlayOneShot(hitSound);
             iTween.PunchScale(hit.gameObject.transform.parent.gameObject, new Vector3(50f, 50f, 50f), 0.6f);
 
             var part = Instantiate(pickupParticles, hit.transform.position, Quaternion.identity);
+            Instantiate(loot, hit.transform.position + Vector3.forward, Quaternion.identity * Quaternion.Euler(90, 0, 0));
+
             Destroy(part, 0.6f);
             print("Mange !");
             Destroy(hit.gameObject.transform.parent.gameObject, 0.5f);
 
             StartCoroutine(nameof(ResetInstantiate));
-        } 
+        }
     }
 
     IEnumerator ResetInstantiate()
